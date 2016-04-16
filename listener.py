@@ -8,8 +8,12 @@ class Listener(object):
 
 	def listen(self):
 		self.lock.acquire()
+		print 'lock acquired by %d' % self.direction
 		active = True
 		try:
-			time.sleep(2)
+			time.sleep(1)
+			print 'lock released by %d' % self.direction
+			self.lock.release()
 		except KeyboardInterrupt:
+			print 'lock released by %d' % self.direction
 			self.lock.release()

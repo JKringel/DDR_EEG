@@ -12,8 +12,7 @@ class Arrow(object):
 		self.listener = listener
 		print(Arrow.directions[arrowType])
 		#generate the listener
-		thread = Thread(target = listener.listen())
-		thread.start()
-		thread.join()
 		#draw it
 
+	def waitForInput(self):
+		self.listener.listen()

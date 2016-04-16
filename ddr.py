@@ -1,4 +1,4 @@
-from threading import Lock
+from threading import Thread, Lock
 import random
 import os
 from arrow import Arrow
@@ -19,7 +19,9 @@ def main():
 
 	while True:
 		d = random.randint(0,3)
-		Arrow(d, listener[d])
+		arrow = Arrow(d, listener[d])
+		thread = Thread(target = arrow.waitForInput())
+		thread.start()
 		#os.system('clear')
 
 if __name__ =="__main__": main()
