@@ -3,6 +3,7 @@ import random
 import os
 from arrow import Arrow
 from listener import Listener
+from gameView import DDRWindow
 
 def main():
 	leftListener = Listener(0)
@@ -17,9 +18,12 @@ def main():
 		3 : rightListener,
 		}
 
+	win = DDRWindow("DDR", 500, 500)
+
 	while True:
 		d = random.randint(0,3)
 		arrow = Arrow(d, listener[d])
+		win.drawArrow(d)
 		thread = Thread(target = arrow.waitForInput())
 		thread.start()
 		#os.system('clear')

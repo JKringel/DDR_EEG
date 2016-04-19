@@ -27,10 +27,6 @@ class DDRWindow(GraphWin):
 		self.scoreText = None
 		self.updateScoreText()
 
-		while True:
-			self.drawArrow(random.randint(0, 3))
-			self.addPoints(100)
-
 	def drawArrowOnce(self, x, y, dir):
 		x1 = x
 		y1 = y
@@ -79,12 +75,3 @@ class DDRWindow(GraphWin):
 	def addPoints(self, points):
 		self.score += points
 		self.updateScoreText()
-
-def main():
-	width = 500
-	height = 500
-	win = DDRWindow("DDR", width, height)
-	win.getMouse()
-	win.close()
-
-main()
