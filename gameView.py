@@ -2,19 +2,19 @@ from graphics import *
 import time
 import random
 from button import *
+import Queue
 
 class DDRWindow(GraphWin):
 	def __init__(self):
 		GraphWin.__init__(self)
-	def __init__(self, name, xdim, ydim, acceptanceInterval, arrowQueue):
+	def __init__(self, name, xdim, ydim):
 		GraphWin.__init__(self, name, xdim, ydim)
-		self.startGame(acceptanceInterval, arrowQueue)
+		self.initGame()
 		
 	def startMenu(self):
 		b = Button(self, Point(30, 25), 20, 10, 'Quit')
 
-	def startGame(self, acceptanceInterval, q):
-		self.time = acceptanceInterval
+	def initGame(self):
 		middle = self.getWidth()/2
 		yBuff = self.getHeight() - 50
 		self.drawArrowOnce(middle - 75, yBuff, 0)
@@ -27,13 +27,19 @@ class DDRWindow(GraphWin):
 		self.scoreText = None
 		self.updateScoreText()
 
+	def startGame(self, acceptanceInterval, arrowQueue):
+		self.time = acceptanceInterval		
 		while True:
+			print("looping")
 			try:
-			    direction = q.get()
+				print("tyring")
+			   	direction = arrowQueue.get()
+		   		print("drawing")
+		   	   	self.drawArrow(direction)
+		   	   	arrowQueue.task_done()
 			except Queue.Empty:
-			    pass
-			else:
-				self.drawArrow(direction)
+				print("queue empty")
+			   	pass
 
 	def drawArrowOnce(self, x, y, dir):
 		x1 = x
