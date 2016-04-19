@@ -6,9 +6,9 @@ from button import *
 class DDRWindow(GraphWin):
 	def __init__(self):
 		GraphWin.__init__(self)
-	def __init__(self, name, xdim, ydim):
+	def __init__(self, name, xdim, ydim, acceptanceInterval, arrowQueue):
 		GraphWin.__init__(self, name, xdim, ydim)
-		self.startGame(1)
+		self.startGame(acceptanceInterval, arrowQueue)
 		
 	def startMenu(self):
 		b = Button(self, Point(30, 25), 20, 10, 'Quit')
