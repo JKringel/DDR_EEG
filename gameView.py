@@ -13,7 +13,7 @@ class DDRWindow(GraphWin):
 	def startMenu(self):
 		b = Button(self, Point(30, 25), 20, 10, 'Quit')
 
-	def startGame(self, acceptanceInterval):
+	def startGame(self, acceptanceInterval, q):
 		self.time = acceptanceInterval
 		middle = self.getWidth()/2
 		yBuff = self.getHeight() - 50
@@ -26,6 +26,10 @@ class DDRWindow(GraphWin):
 		self.score = 0;
 		self.scoreText = None
 		self.updateScoreText()
+
+		while True:
+			direction = q.get()
+			self.drawArrow(direction)
 
 	def drawArrowOnce(self, x, y, dir):
 		x1 = x
