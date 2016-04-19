@@ -28,8 +28,12 @@ class DDRWindow(GraphWin):
 		self.updateScoreText()
 
 		while True:
-			direction = q.get()
-			self.drawArrow(direction)
+			try:
+			    direction = q.get()
+			except Queue.Empty:
+			    pass
+			else:
+				self.drawArrow(direction)
 
 	def drawArrowOnce(self, x, y, dir):
 		x1 = x
