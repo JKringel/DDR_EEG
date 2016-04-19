@@ -30,15 +30,11 @@ class DDRWindow(GraphWin):
 	def startGame(self, acceptanceInterval, arrowQueue):
 		self.time = acceptanceInterval		
 		while True:
-			print("looping")
 			try:
-				print("tyring")
 			   	direction = arrowQueue.get()
-		   		print("drawing")
 		   	   	self.drawArrow(direction)
 		   	   	arrowQueue.task_done()
 			except Queue.Empty:
-				print("queue empty")
 			   	pass
 
 	def drawArrowOnce(self, x, y, dir):
