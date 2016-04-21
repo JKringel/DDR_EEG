@@ -10,7 +10,8 @@ def main():
 	gameLogic = GameLogicHandler(arrowQueue)
 	logicHandlerThread = Thread(target = gameLogic.threadInit)
 	win = DDRWindow("DDR", 500, 500)
-	win.startGame(2, arrowGenQueue)
+	logicHandlerThread.start()
+	win.startGame(2, arrowQueue)
 
 
 if __name__ =="__main__": main()
