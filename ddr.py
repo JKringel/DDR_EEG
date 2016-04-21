@@ -24,7 +24,7 @@ def generateArrows(waitTime, q):
 
 def readInput(q):
 	while True:
-		key = input(": ")
+		# key = input(": ")
 		q.put(key - 1)
 
 
