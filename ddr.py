@@ -1,6 +1,4 @@
 from threading import Thread
-import random
-import time
 from gameView import DDRWindow
 from Queue import Queue
 from gameLogicHandler import GameLogicHandler
