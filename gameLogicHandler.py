@@ -17,6 +17,12 @@ class GameLogicHandler():
 			   	direction = self.arrowFromGenQueue.get()
 		   	   	self.arrowToViewQueue.put(direction)
 		   	   	self.arrowFromGenQueue.task_done()
+		   	   	endtime = time.time() + 2
+		   	   	while (time.time() < endtime):
+		   	   		if True:
+		   	   			print("In Loop")
+		   	   			# add points
+		   	   			break
 			except Queue.Empty:
 			   	pass
 
