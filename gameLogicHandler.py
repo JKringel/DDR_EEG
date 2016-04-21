@@ -10,7 +10,6 @@ class GameLogicHandler():
 		self.Genthread = Thread(target = self.generateArrows, args=(2, self.arrowFromGenQueue,))
 
 	def threadInit(self):
-		print("thread inti")
 		self.Genthread.start()
 		while True:
 			try:
@@ -21,7 +20,6 @@ class GameLogicHandler():
 			   	pass
 
 	def generateArrows(self, waitTime, q):
-		print("generating arrows")
 		while True:
 			d = random.randint(0,3)
 			q.put(d)
