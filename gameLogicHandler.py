@@ -1,5 +1,5 @@
 from threading import Thread
-from Queue import Queue
+from Queue import *
 import random
 import time
 class GameLogicHandler():
@@ -14,29 +14,23 @@ class GameLogicHandler():
 	def threadInit(self):
 		self.Genthread.start()
 		while True:
-			try:
-			   	direction = self.arrowFromGenQueue.get()
-			   	# print("Current direction:" + str(direction))
-		   	   	self.arrowToViewQueue.put(direction)
-		   	   	self.arrowFromGenQueue.task_done()
-		   	   	while True:
-		   	   		drawingDone = False
-		   	   		# Check if the drawing is done
-		   	   		try: 
-		   	   			drawingDone = self.viewDoneQueue.get()
-		   	   			# print("Drawing Finished")
-		   	   			self.viewDoneQueue.task_done()
-		   	   			break;
-		   	   		except Queue.Empty:
-		   	   			pass
+		   	direction = self.arrowFromGenQueue.get()
+		   	print("Current direction:" + str(direction))
+	   	   	self.arrowToViewQueue.put(direction)
+	   	   	self.arrowFromGenQueue.task_done()
+	   	   	while True:
+	   	   		if self.viewDoneQueue.empty():
+	   	   			if not self.controllerQueue.empty():
+	   	   				userIn = self.controllerQueue.get()
+	   	   				print("Dectected:" + str(userIn))
+	   	   		else:
+	   	   			self.viewDoneQueue.get(block = False)
+	   	   			print("Drawing Finished")
+	   	   			self.viewDoneQueue.task_done()
+	   	   			if not self.controllerQueue.empty():
+	 					self.controllerQueue.clear()
+	   	   			break
 
-		   	   		try:
-		   	   			userIn = self.controllerQueue.get()
-		   	   			print(userIn)
-		   	   		except Queue.Empty:
-		   	   			pass
-			except Queue.Empty:
-			   	pass
 
 	def generateArrows(self, waitTime, q):
 		while True:
