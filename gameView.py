@@ -7,7 +7,10 @@ import Queue
 class DDRWindow(GraphWin):
 	def __init__(self):
 		GraphWin.__init__(self)
-	def __init__(self, name, xdim, ydim):
+	def __init__(self, name, xdim, ydim, arrowQueue, doneDrawingQueue, scoreQueue):
+		self.arrowQueue = arrowQueue
+		self.doneDrawingQueue = doneDrawingQueue
+		self.scoreQueue = scoreQueue
 		GraphWin.__init__(self, name, xdim, ydim)
 		self.initGame()
 		
@@ -27,16 +30,13 @@ class DDRWindow(GraphWin):
 		self.scoreText = None
 		self.updateScoreText()
 
-	def startGame(self, acceptanceInterval, arrowQueue, doneDrawingQueue):
+	def startGame(self, acceptanceInterval):
 		self.time = acceptanceInterval		
 		while True:
-			try:
-			   	direction = arrowQueue.get()
-		   	   	self.drawArrow(direction)
-		   	   	doneDrawingQueue.put(True)
-		   	   	arrowQueue.task_done()
-			except Queue.Empty:
-			   	pass
+		   	direction = self.arrowQueue.get()
+	   	   	self.drawArrow(direction)
+	   	   	self.doneDrawingQueue.put(True)
+	   	   	self.arrowQueue.task_done()
 
 	def drawArrowOnce(self, x, y, dir):
 		x1 = x
@@ -73,6 +73,14 @@ class DDRWindow(GraphWin):
 		yDiff = y/(33 * self.time)
 		while (y > 0):
 			l = self.drawArrowOnce(x, y, dir)
+			# call addpoints()
+			if self.scoreQueue.empty():
+				pass
+			else:
+				score = self.scoreQueue.get()
+				self.scoreQueue.task_done()
+				self.addPoints(score)
+				self.scoreQueue.queue.clear()
 			time.sleep(0.03)
 			self.delete(l.id)
 			y = y - yDiff

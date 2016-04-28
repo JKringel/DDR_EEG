@@ -4,11 +4,12 @@ import random
 import time
 class GameLogicHandler():
 
-	def __init__(self, arrowQ, syncQ, controlQ):
+	def __init__(self, arrowQ, syncQ, controlQ, scoreQ):
 		self.arrowFromGenQueue = Queue()
 		self.arrowToViewQueue = arrowQ
 		self.viewDoneQueue = syncQ
 		self.controllerQueue = controlQ
+		self.scoreToViewQueue = scoreQ
 		self.Genthread = Thread(target = self.generateArrows, args=(2, self.arrowFromGenQueue,))
 
 	def threadInit(self):
@@ -23,6 +24,9 @@ class GameLogicHandler():
 	   	   			if not self.controllerQueue.empty():
 	   	   				userIn = self.controllerQueue.get()
 	   	   				print("Dectected:" + str(userIn))
+	   	   				if userIn == direction:
+	   	   					print(str(userIn) + " = " + str(direction))
+	   	   					self.scoreToViewQueue.put(1)
 	   	   		else:
 	   	   			self.viewDoneQueue.get(block = False)
 	   	   			print("Drawing Finished")
