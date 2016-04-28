@@ -4,9 +4,10 @@ import random
 import time
 class GameLogicHandler():
 
-	def __init__(self, q):
+	def __init__(self, arrowQ, syncQ):
 		self.arrowFromGenQueue = Queue()
-		self.arrowToViewQueue = q
+		self.arrowToViewQueue = arrowQ
+		self.viewDoneQueue = syncQ
 		self.Genthread = Thread(target = self.generateArrows, args=(2, self.arrowFromGenQueue,))
 
 	def threadInit(self):
@@ -14,14 +15,23 @@ class GameLogicHandler():
 		while True:
 			try:
 			   	direction = self.arrowFromGenQueue.get()
+			   	print("Current direction:" + str(direction))
 		   	   	self.arrowToViewQueue.put(direction)
 		   	   	self.arrowFromGenQueue.task_done()
-		   	   	endtime = time.time() + 2
-		   	   	while (time.time() < endtime):
-		   	   		if True:
-		   	   			print("In Loop")
+		   	   	while True:
+		   	   		drawingDone = False
+		   	   		# Check if the drawing is done
+		   	   		try: 
+		   	   			drawingDone = self.viewDoneQueue.get()
+		   	   			print("Drawing Finished")
+		   	   			self.viewDoneQueue.task_done()
+		   	   			break;
+		   	   		except Queue.Empty:
+		   	   			pass
+
+		   	   		# if current direciton is thinking direction:
 		   	   			# add points
-		   	   			break
+		   	   			# break
 			except Queue.Empty:
 			   	pass
 

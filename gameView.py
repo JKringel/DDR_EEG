@@ -27,12 +27,13 @@ class DDRWindow(GraphWin):
 		self.scoreText = None
 		self.updateScoreText()
 
-	def startGame(self, acceptanceInterval, arrowQueue):
+	def startGame(self, acceptanceInterval, arrowQueue, doneDrawingQueue):
 		self.time = acceptanceInterval		
 		while True:
 			try:
 			   	direction = arrowQueue.get()
 		   	   	self.drawArrow(direction)
+		   	   	doneDrawingQueue.put(True)
 		   	   	arrowQueue.task_done()
 			except Queue.Empty:
 			   	pass
