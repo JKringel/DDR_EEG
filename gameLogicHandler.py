@@ -32,7 +32,7 @@ class GameLogicHandler():
 	   	   			print("Drawing Finished")
 	   	   			self.viewDoneQueue.task_done()
 	   	   			if not self.controllerQueue.empty():
-	 					self.controllerQueue.clear()
+	 					self.controllerQueue.queue.clear()
 	   	   			break
 
 
