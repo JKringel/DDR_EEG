@@ -16,16 +16,16 @@ class GameLogicHandler():
 		self.Genthread.start()
 		while True:
 		   	direction = self.arrowFromGenQueue.get()
-		   	print("Current direction:" + str(direction))
+		   	print("Current Direction = " + str(direction))
 	   	   	self.arrowToViewQueue.put(direction)
 	   	   	self.arrowFromGenQueue.task_done()
 	   	   	while True:
 	   	   		if self.viewDoneQueue.empty():
 	   	   			if not self.controllerQueue.empty():
 	   	   				userIn = self.controllerQueue.get()
-	   	   				print("Dectected:" + str(userIn))
+	   	   				print("EEG: " + str(userIn))
 	   	   				if userIn == direction:
-	   	   					print(str(userIn) + " = " + str(direction))
+	   	   					print("Corrrect!: " + str(userIn))
 	   	   					self.scoreToViewQueue.put(1)
 	   	   		else:
 	   	   			self.viewDoneQueue.get(block = False)

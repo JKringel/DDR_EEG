@@ -3,6 +3,7 @@ from gameView import DDRWindow
 from Queue import Queue
 from gameLogicHandler import GameLogicHandler
 from controller import Controller
+import os
 
 def main():
 	arrowQueue = Queue()
@@ -20,6 +21,8 @@ def main():
 	logicHandlerThread.start()
 	controllerThread.start()
 	win.startGame(2)
+
+	os._exit(0)
 
 if __name__ =="__main__": main()
 
