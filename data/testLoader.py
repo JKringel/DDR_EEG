@@ -49,9 +49,11 @@ def parseFile(file):
 	sampleList = []
 	rowWindow = SAMPLE_SIZE
 	index = 1
+	grabCols = range(2,16)
+	grabCols.append(35)
 
 	# Get the first window and remove samples before time = 0
-	sample = numpy.genfromtxt(file, delimiter=',', skip_header=index, max_rows=rowWindow, usecols=range(2,16))
+	sample = numpy.genfromtxt(file, delimiter=',', skip_header=index, max_rows=rowWindow, usecols=grabCols)
 	for i in range(len(sample)):
 		if sample[i, 0] == 0.0:
 			break
@@ -61,7 +63,7 @@ def parseFile(file):
 	# Add each window of values to the list
 	while True:
 		try:
-			sample = numpy.genfromtxt(file, delimiter=',', skip_header=index, max_rows=rowWindow, usecols=range(2,16))
+			sample = numpy.genfromtxt(file, delimiter=',', skip_header=index, max_rows=rowWindow, usecols=grabCols)
 			if len(sample) == rowWindow:
 				sampleList.append(sample)
 			index += rowWindow
@@ -81,7 +83,7 @@ def printSample(sample):
 def main():
 	fileDir = '01-01-15.04.16.18.06.35.csv'
 	collection = parseFile(fileDir)
-	printCollection(absoluteMax(collection))
+	printCollection(collection)
 	#printCollection(absoluteMin(collection))
 
 if __name__ =="__main__":
