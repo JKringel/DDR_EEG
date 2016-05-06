@@ -2,7 +2,14 @@ import numpy
 from sample import Sample
 from classifier import Classifier
 
-# Parses file into list of samples (currently 128 rows)
+# Method:	parseFile
+# Description:	
+#	Converts a csv of EEG data into a list of samples
+#	A sample is defined as a list of samplings collected by the EEG under one direction
+# Arguments:
+#	file:	The file path
+# Returns:
+#	samples:	A list of collected samples
 def parseFile(file):
 	samples = []
 	index = 1
@@ -19,6 +26,8 @@ def parseFile(file):
 	# Gets a 2D array of all data
 	dataSet = numpy.genfromtxt(file, delimiter=',', skip_header=index, usecols=columnSelection)
 
+	# increase the data window until the samples change direction
+	# Then pass the window to a new Sample object
 	dataWindow = []
 	for i in range(len(dataSet)):
 		sampling = dataSet[i]
@@ -41,6 +50,7 @@ def main():
 	c.extractTrainingFeatures(trainingSamples)
 	c.extractTestingFeatures(testingSamples)
 
+	# testing number of samples correctly predicted
 	for i in range(1, 26) :
 		c.trainKNeighbors(i, 'distance')
 		out = c.testData()

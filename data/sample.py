@@ -41,7 +41,7 @@ class Sample():
 	def getDirection(self):
 		return self.direction
 
-	'''_______________Methods no longer being used_______________'''
+	# ---------Test Methods and Methods no longer being used---------
 	def butter_bandpass(self, lowcut, highcut, fs, order=5):
 	    nyq = 0.5 * fs
 	    low = lowcut / nyq
