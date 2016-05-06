@@ -1,7 +1,5 @@
-
 from sklearn import neighbors, datasets
 import sample
-
 
 # Class:	Classifier
 # Description:	
@@ -37,12 +35,19 @@ class Classifier():
 		self.model = clf
 		return self.model
 
+	# Method:	testData
+	# Description:
+	#	Classifies EEG data points by type of arrow, based on the model of this classifier
+	# Arguments:
+	#	dataSamples:	a list of EEG data points of type Sample
+	# Retuns:
+	#	prediction:		a list of integers that represent the predicted arrow of the data
+	#					points in order.  1 - Up, 2 - Down, 3 - Left, 4 - Right
 	def testData(self, dataSamples):
 		split = self.splitData(dataSamples)
 		data = split[0]
 		target = split[1]
 
-		# predit the output
 		prediction = self.model.predict(data)
 
 		# calculate percent correct
@@ -56,6 +61,15 @@ class Classifier():
 
 		return prediction
 
+	# Method:	splitData
+	# Description:
+	#	Takes a list of data samples and extracts all of the data and all of the targets.
+	#	This should be used within this class only
+	# Arguments:
+	#	dataSamples:	a list of EEG data points of type Sample
+	# Returns:
+	#	[data, target]:	a list with the first element is data, which is a list of a list,
+	#					and the second element is target, which is a list of directions
 	def splitData(self, dataSamples):
 		data = []
 		target = []
