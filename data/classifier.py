@@ -25,7 +25,7 @@ class Classifier():
 	# Returns:
 	#	model:	The trained model
 	def trainKNeighbors(self, dataSamples, n_neighbors, weights):
-		split = self.splitData(dataSamples)
+		split = self.extractFeatures(dataSamples)
 		data = split[0]
 		target = split[1]
 
@@ -43,8 +43,9 @@ class Classifier():
 	# Retuns:
 	#	prediction:		a list of integers that represent the predicted arrow of the data
 	#					points in order.  1 - Up, 2 - Down, 3 - Left, 4 - Right
+	#	percent:		the accuracy of the model
 	def testData(self, dataSamples):
-		split = self.splitData(dataSamples)
+		split = self.extractFeatures(dataSamples)
 		data = split[0]
 		target = split[1]
 
@@ -56,21 +57,21 @@ class Classifier():
 			if prediction[i] == target[i]:
 				correct += 1
 
-		percent = correct/len(prediction)
+		percent = float(correct)/len(prediction)
 		print(str(correct) + " correct out of " + str(len(prediction)) + " samples.")
 
-		return prediction
+		return [prediction, percent]
 
-	# Method:	splitData
+	# Method:	extractFeatures
 	# Description:
-	#	Takes a list of data samples and extracts all of the data and all of the targets.
+	#	Takes a list of data samples and extracts all of the features from the data and all of the targets.
 	#	This should be used within this class only
 	# Arguments:
 	#	dataSamples:	a list of EEG data points of type Sample
 	# Returns:
 	#	[data, target]:	a list with the first element is data, which is a list of a list,
 	#					and the second element is target, which is a list of directions
-	def splitData(self, dataSamples):
+	def extractFeatures(self, dataSamples):
 		data = []
 		target = []
 

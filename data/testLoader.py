@@ -32,10 +32,20 @@ def parseFile(file):
 
 def main():
 	fileDir = 'trainingData.csv'
-	collection = parseFile(fileDir)
+	trainingSamples = parseFile(fileDir)
+	fileDir = 'Test02.csv'
+	testingSamples = parseFile(fileDir)
+
+	accuracy = []
 	c = Classifier()
-	c.trainKNeighbors(collection, 5, 'distance')
-	c.testData(collection)
+
+	for i in range(1, 26) :
+		c.trainKNeighbors(trainingSamples, i, 'uniform')
+		out = c.testData(testingSamples)
+		accuracy.append(out[1])
+
+	print(accuracy)
+
 
 
 if __name__ =="__main__":
