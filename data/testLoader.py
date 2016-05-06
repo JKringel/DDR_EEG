@@ -33,6 +33,8 @@ def parseFile(file):
 def main():
 	fileDir = 'trainingData.csv'
 	trainingSamples = parseFile(fileDir)
+	trainingSamples[0].filterUsingBandpass()
+	trainingSamples[0].printSensors()
 	fileDir = 'Test02.csv'
 	testingSamples = parseFile(fileDir)
 

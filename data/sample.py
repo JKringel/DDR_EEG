@@ -30,7 +30,7 @@ class Sample():
 			sensorData = self.sampleList[i]
 			y[i] = butter_bandpass_filter(sensorData, lowcut, highcut, fs, order=6)
 
-		self.sensorData = y
+		self.sampleList = y
 
 	def maxOfFourierTransform(self):
 		maxFourier = []
