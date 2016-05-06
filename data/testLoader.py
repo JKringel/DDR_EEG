@@ -2,50 +2,6 @@ import numpy
 from sample import Sample
 from classifier import Classifier
 
-SAMPLE_SIZE = 129
-
-def absoluteMax(collection):
-	maxCollection = []
-	for i in range(len(collection)):
-		maxCollection.append(max(collection[i]))
-
-	return maxCollection
-
-def absoluteMin(collection):
-	minCollection = []
-	for i in range(len(collection)):
-		minCollection.append(min(collection[i]))
-
-	return minCollection
-
-def localMaxMin(sample):
-	maxList = [[]]
-	minList = [[]]
-
-	
-
-def max(sample):
-	maxList = sample[0]
-
-	for i in range(len(sample)):
-		sampling = sample[i]
-		for j in range(len(sampling)):
-			if sampling[j] >  maxList[j]:
-				maxList[j] = sampling[j]
-
-	return maxList
-
-def min(sample):
-	minList = sample[0]
-
-	for i in range(len(sample)):
-		sampling = sample[i]
-		for j in range(len(sampling)):
-			if sampling[j] <  minList[j]:
-				minList[j] = sampling[j]
-
-	return minList
-
 # Parses file into list of samples (currently 128 rows)
 def parseFile(file):
 	samples = []
@@ -74,16 +30,8 @@ def parseFile(file):
 
 	return samples
 
-def printCollection(collection):
-	for i in range(len(collection)):
-		print collection[i]
-
-def printSample(sample):
-	for i in range(len(sample)):
-		print sample[i]
-
 def main():
-	fileDir = 'test02-test02-04.05.16.21.03.39.csv'
+	fileDir = 'trainingData.csv'
 	collection = parseFile(fileDir)
 	c = Classifier(5, 'distance')
 	c.trainData(collection)

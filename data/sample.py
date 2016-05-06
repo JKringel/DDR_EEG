@@ -21,7 +21,7 @@ class Sample():
 
 	def printSensors(self):
 		for i in range(len(self.sampleList)):
-			print("_____________SENSOR" + str(i) + "_____________")
+			print("____SENSOR " + str(i) + "____")
 			for j in range(len(self.sampleList[i])):
 				print self.sampleList[i][j]
 
