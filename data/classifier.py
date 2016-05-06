@@ -4,12 +4,14 @@ import sample
 
 
 # Class:	Classifier
-# Description:	This class is used to classify EEG data.  Training methods:
-# 			- kNeighborsClassifier
+# Description:	
+#	This class is used to classify EEG data.  Training methods:
+# 		- kNeighborsClassifier
 class Classifier():
 
 	# Constructor
-	# Description:	Initialize the instance variables
+	# Description:	
+	#	Initialize the instance variables
 	# Instance Variables:
 	#	- model:	The mathematical model built by the classifier
 	def __init__(self):
@@ -17,16 +19,23 @@ class Classifier():
 
 	# Method:	trainKNeighbors
 	# Description:	
+	#	Trains the model using a kNeighborsClassifier algorithm
+	# Arguments:
+	#	dataSamples:	a list of EEG data points of type Sample
+	#	n_neighbors:	the number of neighbors to look at when classifying a point
+	#	weights:		the type of weighting system.  Either 'distance' or 'uniform'
+	# Returns:
+	#	model:	The trained model
 	def trainKNeighbors(self, dataSamples, n_neighbors, weights):
 		split = self.splitData(dataSamples)
 		data = split[0]
 		target = split[1]
 
-		# create an instance of Neighbours Classifier and fit the data.
 		clf = neighbors.KNeighborsClassifier(n_neighbors, weights=weights)
 		clf.fit(data, target)
 
 		self.model = clf
+		return self.model
 
 	def testData(self, dataSamples):
 		split = self.splitData(dataSamples)
