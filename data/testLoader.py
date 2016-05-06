@@ -33,8 +33,8 @@ def parseFile(file):
 def main():
 	fileDir = 'trainingData.csv'
 	collection = parseFile(fileDir)
-	c = Classifier(5, 'distance')
-	c.trainData(collection)
+	c = Classifier()
+	c.trainKNeighbors(collection, 5, 'distance')
 	c.testData(collection)
 
 
