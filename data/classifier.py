@@ -20,12 +20,12 @@ class Classifier():
 			target.append(sample.getDirection())
 
 		# create an instance of Neighbours Classifier and fit the data.
-		n = self.n_neighbors
 		w = self.weights
-    	# clf = neighbors.KNeighborsClassifier(n, weights=w)
-    	# clf.fit(data, target)
+		n = self.n_neighbors
+		clf = neighbors.KNeighborsClassifier(n, weights=w)
+		clf.fit(data, target)
 
-    	# self.model = clf
+		self.model = clf
 
 
 		
