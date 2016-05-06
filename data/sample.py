@@ -7,7 +7,7 @@ class Sample():
 		self.sampleList = zip(*dataWindow)		# matrix transpose
 		self.direction = direction
 
-	def butter_bandpass(lowcut, highcut, fs, order=5):
+	def butter_bandpass(self, lowcut, highcut, fs, order=5):
 	    nyq = 0.5 * fs
 	    low = lowcut / nyq
 	    high = highcut / nyq
@@ -15,8 +15,8 @@ class Sample():
 	    return b, a
 
 
-	def butter_bandpass_filter(data, lowcut, highcut, fs, order=5):
-	    b, a = butter_bandpass(lowcut, highcut, fs, order=order)
+	def butter_bandpass_filter(self, data, lowcut, highcut, fs, order=5):
+	    b, a = self.butter_bandpass(lowcut, highcut, fs, order=order)
 	    y = lfilter(b, a, data)
 	    return y
 
@@ -26,9 +26,9 @@ class Sample():
 		lowcut = 8
 		highcut = 30
 
-		for i in range(len(self.smapleList)):
+		for i in range(len(self.sampleList)):
 			sensorData = self.sampleList[i]
-			y[i] = butter_bandpass_filter(sensorData, lowcut, highcut, fs, order=6)
+			y.append(self.butter_bandpass_filter(sensorData, lowcut, highcut, fs, order=6))
 
 		self.sampleList = y
 
