@@ -15,20 +15,20 @@ class GameLogicHandler():
 		self.Genthread = Thread(target = self.generateArrows, args=(2, self.arrowFromGenQueue,))
 
 	def threadInit(self):
-		self.Genthread.start()
-		while True:
-		   	direction = self.arrowFromGenQueue.get()
+		self.Genthread.start()								# Start generating arrows
+		while True:											
+		   	direction = self.arrowFromGenQueue.get()		# Get an arrow
 		   	print("Current Direction = " + str(direction))
-	   	   	self.arrowToViewQueue.put(direction)
+	   	   	self.arrowToViewQueue.put(direction)			# Draw the arrow
 	   	   	self.arrowFromGenQueue.task_done()
 	   	   	while True:
-	   	   		if self.viewDoneQueue.empty():
+	   	   		if self.viewDoneQueue.empty():				# View has not yet notified it is done drawing
 	   	   			if not self.controllerQueue.empty():
-	   	   				userIn = self.controllerQueue.get()
+	   	   				userIn = self.controllerQueue.get()	# Get the next EEG reading
 	   	   				print("EEG: " + str(userIn))
-	   	   				if userIn == direction:
+	   	   				if userIn == direction:				# If the direction from the EEG matches the arrow
 	   	   					print("Corrrect!: " + str(userIn))
-	   	   					self.scoreToViewQueue.put(1)
+	   	   					self.scoreToViewQueue.put(1)	# Increment the score by 1 point
 	   	   		else:
 	   	   			self.viewDoneQueue.get(block = False)
 	   	   			print("Drawing Finished")
