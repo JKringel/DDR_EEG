@@ -33,17 +33,17 @@ def parseFile(file):
 def main():
 	fileDir = 'trainingData.csv'
 	trainingSamples = parseFile(fileDir)
-	# trainingSamples[0].filterUsingBandpass()
-	# trainingSamples[0].printSensors()
-	fileDir = 'Test02.csv'
+	fileDir = 'Test01.csv'
 	testingSamples = parseFile(fileDir)
 
 	accuracy = []
 	c = Classifier()
+	c.extractTrainingFeatures(trainingSamples)
+	c.extractTestingFeatures(testingSamples)
 
 	for i in range(1, 26) :
-		c.trainKNeighbors(trainingSamples, i, 'uniform')
-		out = c.testData(testingSamples)
+		c.trainKNeighbors(i, 'distance')
+		out = c.testData()
 		accuracy.append(out[1])
 
 	print(accuracy)

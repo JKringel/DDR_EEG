@@ -21,16 +21,16 @@ class Sample():
 	    return y
 
 	def filterUsingBandpass(self):
-		y = []
+		filteredSensors = []
 		fs = 250
 		lowcut = 8
 		highcut = 30
 
 		for i in range(len(self.sampleList)):
 			sensorData = self.sampleList[i]
-			y.append(self.butter_bandpass_filter(sensorData, lowcut, highcut, fs, order=6))
+			filteredSensors.append(self.butter_bandpass_filter(sensorData, lowcut, highcut, fs, order=6))
 
-		self.sampleList = y
+		self.sampleList = filteredSensors
 
 	def maxOfFourierTransform(self):
 		maxFourier = []

@@ -13,7 +13,17 @@ class Classifier():
 	# Instance Variables:
 	#	- model:	The mathematical model built by the classifier
 	def __init__(self):
+		self.trainingData = None
+		self.testingData = None
 		self.model = None
+
+	def extractTrainingFeatures(self, data):
+		print("___________Extracting training features____________")
+		self.trainingData = self.extractFeatures(data)
+
+	def extractTestingFeatures(self, data):
+		print("___________Extracting testing features_____________")
+		self.testingData = self.extractFeatures(data)
 
 	# Method:	trainKNeighbors
 	# Description:	
@@ -24,10 +34,9 @@ class Classifier():
 	#	weights:		the type of weighting system.  Either 'distance' or 'uniform'
 	# Returns:
 	#	model:	The trained model
-	def trainKNeighbors(self, dataSamples, n_neighbors, weights):
-		split = self.extractFeatures(dataSamples)
-		data = split[0]
-		target = split[1]
+	def trainKNeighbors(self, n_neighbors, weights):
+		data = self.trainingData[0]
+		target = self.trainingData[1]
 
 		clf = neighbors.KNeighborsClassifier(n_neighbors, weights=weights)
 		clf.fit(data, target)
@@ -44,10 +53,9 @@ class Classifier():
 	#	prediction:		a list of integers that represent the predicted arrow of the data
 	#					points in order.  1 - Up, 2 - Down, 3 - Left, 4 - Right
 	#	percent:		the accuracy of the model
-	def testData(self, dataSamples):
-		split = self.extractFeatures(dataSamples)
-		data = split[0]
-		target = split[1]
+	def testData(self):
+		data = self.testingData[0]
+		target = self.testingData[1]
 
 		prediction = self.model.predict(data)
 
@@ -77,7 +85,9 @@ class Classifier():
 
 		# get the data and the targets
 		for i in range(len(dataSamples)):
+			print("Extracting features for sample " + str(i))
 			sample = dataSamples[i]
+			sample.filterUsingBandpass()
 			data.append(sample.maxOfFourierTransform())
 			target.append(sample.getDirection())
 
