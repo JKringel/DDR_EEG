@@ -26,7 +26,7 @@ class Sample():
 		lowcut = 8
 		highcut = 30
 
-		for i in range(len(self.smapleList))
+		for i in range(len(self.smapleList)):
 			sensorData = self.sampleList[i]
 			y[i] = butter_bandpass_filter(sensorData, lowcut, highcut, fs, order=6)
 
