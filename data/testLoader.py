@@ -85,11 +85,9 @@ def printSample(sample):
 def main():
 	fileDir = 'test02-test02-04.05.16.21.03.39.csv'
 	collection = parseFile(fileDir)
-
 	c = Classifier(5, 'distance')
+	c.trainData(collection)
 
-	#printCollection(collection)
-	#printCollection(absoluteMin(collection))
 
 if __name__ =="__main__":
 	main()

@@ -10,7 +10,7 @@ class Classifier():
 	def trainData(self, dataSamples):
 		data = []
 		target = []
-
+		
 		# get the data nd the targets
 		for i in len(dataSamples):
 			sample = dataSamples[i]
