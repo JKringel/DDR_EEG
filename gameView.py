@@ -1,7 +1,6 @@
 from graphics import *
 import time
 import random
-from button import *
 import Queue
 
 class DDRWindow(GraphWin):
