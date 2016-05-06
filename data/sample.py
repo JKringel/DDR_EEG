@@ -16,6 +16,9 @@ class Sample():
 
 		return maxFourier
 
+	def getDirection():
+		return self.direction
+
 	def printSensors(self):
 		for i in range(len(self.sampleList)):
 			print("_____________SENSOR" + str(i) + "_____________")

@@ -1,5 +1,6 @@
 import numpy
 from sample import Sample
+from classifier import Classifier
 
 SAMPLE_SIZE = 129
 
@@ -47,7 +48,7 @@ def min(sample):
 
 # Parses file into list of samples (currently 128 rows)
 def parseFile(file):
-	Samples = []
+	samples = []
 	index = 1
 	columnSelection = range(2,16)
 	columnSelection.append(35)
@@ -68,10 +69,10 @@ def parseFile(file):
 		dataWindow.append(sampling[0:14])
 		direction = dataSet[i, 14]
 		if direction != 0:
-			Samples.append(Sample(dataWindow, direction))
+			samples.append(Sample(dataWindow, direction))
 			dataWindow = []
 
-	print(Samples[0].maxOfFourierTransform())
+	return samples
 
 def printCollection(collection):
 	for i in range(len(collection)):
@@ -84,6 +85,9 @@ def printSample(sample):
 def main():
 	fileDir = 'test02-test02-04.05.16.21.03.39.csv'
 	collection = parseFile(fileDir)
+
+	c = Classifier(5, 'distance')
+
 	#printCollection(collection)
 	#printCollection(absoluteMin(collection))
 
