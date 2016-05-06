@@ -87,6 +87,7 @@ def main():
 	collection = parseFile(fileDir)
 	c = Classifier(5, 'distance')
 	c.trainData(collection)
+	c.testData(collection)
 
 
 if __name__ =="__main__":
