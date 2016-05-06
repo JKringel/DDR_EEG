@@ -41,22 +41,25 @@ def parseFile(file):
 
 def main():
 	fileDir = 'trainingData.csv'
+	print("Parsing the training data from \'" + fileDir +"\'")
 	trainingSamples = parseFile(fileDir)
 	fileDir = 'Test01.csv'
+	print("Parsing the testing data from \'" + fileDir + "\'")
 	testingSamples = parseFile(fileDir)
 
-	accuracy = []
 	c = Classifier()
+	print("Extracting features from the training samples")
 	c.extractTrainingFeatures(trainingSamples)
+	print("Extracting features from the testing samples")
 	c.extractTestingFeatures(testingSamples)
 
 	# testing number of samples correctly predicted
 	for i in range(1, 26) :
+		print("Training the model using a kNeighborsClassifier with k = " + str(i))
 		c.trainKNeighbors(i, 'distance')
 		out = c.testData()
-		accuracy.append(out[1])
-
-	print(accuracy)
+		percent = out[1] * 100
+		print("Accuracy: " + "{0:.2f}".format(percent) + "%\n")
 
 
 

@@ -18,11 +18,9 @@ class Classifier():
 		self.model = None
 
 	def extractTrainingFeatures(self, data):
-		print("___________Extracting training features____________")
 		self.trainingData = self.extractFeatures(data)
 
 	def extractTestingFeatures(self, data):
-		print("___________Extracting testing features_____________")
 		self.testingData = self.extractFeatures(data)
 
 	# Method:	trainKNeighbors
@@ -85,9 +83,9 @@ class Classifier():
 
 		# get the data and the targets
 		for i in range(len(dataSamples)):
-			print("Extracting features for sample " + str(i))
 			sample = dataSamples[i]
-			sample.filterUsingBandpass()
+			# This next line is used when using a bandpass filter to extract features.
+			# sample.filterUsingBandpass()
 			data.append(sample.maxOfFourierTransform())
 			target.append(sample.getDirection())
 
