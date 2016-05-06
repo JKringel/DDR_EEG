@@ -11,12 +11,16 @@ def main():
 	controllerQueue = Queue()
 	scoreQueue = Queue()
 
+	# Generating model and controller instances
 	gameLogic = GameLogicHandler(arrowQueue, drawingDoneQueue, controllerQueue, scoreQueue)
 	controller = Controller(controllerQueue)
 	
+	# Generating threads for the model and controller
 	logicHandlerThread = Thread(target = gameLogic.threadInit)
 	controllerThread = Thread(target = controller.readInput)
 
+	# Open a view in the main thread
+	# Start model and controller in separate threads
 	win = DDRWindow("DDR", 500, 500, arrowQueue, drawingDoneQueue, scoreQueue)
 	logicHandlerThread.start()
 	controllerThread.start()
