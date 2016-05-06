@@ -1,5 +1,6 @@
 
 from sklearn import neighbors, datasets
+import sample
 
 class Classifier():
 
@@ -13,18 +14,18 @@ class Classifier():
 		target = []
 
 		# get the data nd the targets
-		for i in len(dataSamples):
+		for i in range(len(dataSamples)):
 			sample = dataSamples[i]
 			data.append(sample.maxOfFourierTransform())
-			target.append(data.getDirection())
+			target.append(sample.getDirection())
 
 		# create an instance of Neighbours Classifier and fit the data.
 		n = self.n_neighbors
 		w = self.weights
-    	clf = neighbors.KNeighborsClassifier(n, weights=w)
-    	clf.fit(data, target)
+    	# clf = neighbors.KNeighborsClassifier(n, weights=w)
+    	# clf.fit(data, target)
 
-    	self.model = clf
+    	# self.model = clf
 
 
 		

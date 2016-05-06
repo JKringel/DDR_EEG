@@ -16,7 +16,7 @@ class Sample():
 
 		return maxFourier
 
-	def getDirection():
+	def getDirection(self):
 		return self.direction
 
 	def printSensors(self):
