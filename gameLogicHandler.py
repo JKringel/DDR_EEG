@@ -14,6 +14,8 @@ class GameLogicHandler():
 		self.arrowFromGenQueue = Queue()
 		self.Genthread = Thread(target = self.generateArrows, args=(2, self.arrowFromGenQueue,))
 
+	# Thread entry point for game logic.
+	# Here we 1) generate an arrow, 2) read EEG input, 3) update the score
 	def threadInit(self):
 		self.Genthread.start()								# Start generating arrows
 		while True:											
@@ -33,7 +35,7 @@ class GameLogicHandler():
 	   	   			self.viewDoneQueue.get(block = False)
 	   	   			print("Drawing Finished")
 	   	   			self.viewDoneQueue.task_done()
-	   	   			if not self.controllerQueue.empty():
+	   	   			if not self.controllerQueue.empty():	# Empty EEG input queue so we can start over
 	 					self.controllerQueue.queue.clear()
 	   	   			break
 
