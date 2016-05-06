@@ -1,10 +1,36 @@
 import numpy
+from scipy.signal import butter, lfilter
 
 class Sample():
 
 	def __init__(self, dataWindow, direction):
 		self.sampleList = zip(*dataWindow)		# matrix transpose
 		self.direction = direction
+
+	def butter_bandpass(lowcut, highcut, fs, order=5):
+	    nyq = 0.5 * fs
+	    low = lowcut / nyq
+	    high = highcut / nyq
+	    b, a = butter(order, [low, high], btype='band')
+	    return b, a
+
+
+	def butter_bandpass_filter(data, lowcut, highcut, fs, order=5):
+	    b, a = butter_bandpass(lowcut, highcut, fs, order=order)
+	    y = lfilter(b, a, data)
+	    return y
+
+	def filterUsingBandpass(self):
+		y = []
+		fs = 250
+		lowcut = 8
+		highcut = 30
+
+		for i in range(len(self.smapleList))
+			sensorData = self.sampleList[i]
+			y[i] = butter_bandpass_filter(sensorData, lowcut, highcut, fs, order=6)
+
+		self.sensorData = y
 
 	def maxOfFourierTransform(self):
 		maxFourier = []
